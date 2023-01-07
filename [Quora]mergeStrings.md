@@ -92,3 +92,92 @@ def mergeStrings(s1, s2):
     return "".join(res)
 ```
 
+```javascript
+/*
+s1: "ougtaleegvrabhugzyx"
+s2: "wvieaqgaegbxg"
+Expected Output:
+"owvieaqugtaleegvrabhugzyxgaegbxg"
+*/
+const s1 = "ougtaleegvrabhugzyx";
+const s2 = "wvieaqgaegbxg";
+const k ="owvieaqugtaleegvrabhugzyxgaegbxg";
+solution(s1,s2,k);
+
+function solution(s1,s2,k) {
+arrS1 = [...s1];
+//console.log(arrS1);
+arrS2 = [...s2];
+//console.log(arrS2);
+appearS1 =[];
+appearS2 =[];
+
+for (i=0;i<arrS1.length;i++) {
+  var regex = new RegExp(arrS1[i], "g");  
+  let xtimes=(s1.match(regex)).length;
+  let xchar = {};
+  xchar.char =arrS1[i];
+  xchar.num =xtimes;
+  //console.log(arrS1[i]+":"+xtimes);
+  appearS1[i] = xchar;  
+}
+
+for (i=0;i<arrS2.length;i++) {
+  var regex = new RegExp(arrS2[i], "g");  
+  let xtimes=(s2.match(regex)).length;
+  let xchar = {};
+  xchar.char =arrS2[i];
+  xchar.num =xtimes;
+  //console.log(arrS2[i]+":"+xtimes);
+  appearS2[i] = xchar;
+}
+
+//console.log(appearS1);
+//console.log(appearS2);
+console.log(appearS1.map(u => u.char +":"+u.num).join(', '));
+console.log(appearS2.map(u => u.char +":"+u.num).join(', '));
+  
+str1=0;
+str2=0;
+len1=arrS1.length;
+len2=arrS2.length;
+res=[];
+while ( str1 < len1 && str2 < len2 ) {
+  
+  if (appearS1[str1].num < appearS2[str2].num) {
+    res.push(appearS1[str1].char)
+    str1++
+  } else if (appearS1[str1].num > appearS2[str2].num) {
+    res.push(appearS2[str2].char)
+    str2++
+  } else {
+    
+    if(arrS1[str1] <= arrS2[str2]){
+      res.push(appearS1[str1].char)
+      str1++
+    } else { 
+      if (arrS1[str1] > arrS2[str2]) {
+        res.push(appearS2[str2].char)
+        str2++
+      }
+    }
+  }  
+}
+
+while (str1 < len1 ) {
+  res.push(appearS1[str1].char)
+  str1++
+}
+
+while (str2 < len2) {
+   res.push(appearS2[str2].char)
+        str2++
+  
+}
+
+console.log(res)
+const finalres = res.join('');
+console.log(finalres);
+console.log(finalres === k); 
+}
+```
